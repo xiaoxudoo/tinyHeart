@@ -6,8 +6,8 @@ var can2;//画布2，负责背景，珊瑚，果实
 var ctx2;
 var canWidth;//画布的长和宽
 var canHeight;
-var lastTime//记录时间
-var deltaTime;//记录一帧的时间
+var lastTime=Date.now();//记录时间
+var deltaTime=0;//记录一帧的时间
 var bgPic = new Image();//背景图
 var ane;//珊瑚
 var fruit;//果实
@@ -15,6 +15,19 @@ var mom;//大鱼
 var baby;//小鱼
 var mx;//鼠标x，y坐标
 var my;
+var data;
+var wave;
+var halo;
+
+var babyTail = [];
+var babyEye = [];
+var babyBoby = [];
+
+var momTail = [];
+var momEye = [];
+var momBodyOra = [];
+var momBodyBlue = [];
+
 
 //窗口加载完后开始游戏函数
 //--------------------------------------------------------------------------
@@ -54,6 +67,41 @@ function init(){
 	//初始鼠标坐标
 	mx = canWidth*0.5;
 	my = canHeight*0.5;
+
+	data = new dataObj();
+	wave = new waveObj();
+	wave.init();
+	halo = new haloObj();
+	halo .init();
+
+	for (var i = 0; i < 8; i++) {
+		babyTail[i] = new Image();
+		babyTail[i].src = "./img/babyTail"+i+".png";
+	}
+	for (var i = 0; i < 2; i++) {
+		babyEye[i] = new Image();
+		babyEye[i].src = "./img/babyEye"+i+".png";
+	}
+	for (var i = 0; i < 20; i++) {
+		babyBoby[i] = new Image();
+		babyBoby[i].src = "./img/babyFade"+i+".png";
+	}
+	for (var i = 0; i < 8; i++) {
+		momTail[i] = new Image();
+		momTail[i].src = "./img/bigTail"+i+".png";
+	}
+	for (var i = 0; i < 2; i++) {
+		momEye[i] = new Image();
+		momEye[i].src = "./img/bigEye"+i+".png";
+	}
+	for (var i = 0; i < 8; i++) {
+		momBodyOra[i] = new Image();
+		momBodyBlue[i] = new Image();
+		momBodyOra[i].src = "./img/bigSwim"+i+".png";
+		momBodyBlue[i].src = "./img/bigSwimBlue"+i+".png";
+	}
+	ctx1.font = "20px Verdana";
+	ctx1.textAlign = "center";
 }
 
 //循环执行
@@ -82,11 +130,18 @@ function gameloop(){
 	baby.draw();
 	//大鱼和果实的碰撞检测
 	momFruitsCollision();
+	momBabyCollision();
+
+	data.draw();
+	wave.draw();
+	halo.draw();
 }
 //获取鼠标坐标
 function onMouseMove(e){
-	if (e.offSetX || e.layerX) {
-		mx = e.offSetX == undefined ? e.layerX : e.offSetX;
-		my = e.offSetY == undefined ? e.layerY : e.offSetY;
-	};
+	if (!data.gameOver) {
+		if (e.offSetX || e.layerX) {
+			mx = e.offSetX == undefined ? e.layerX : e.offSetX;
+			my = e.offSetY == undefined ? e.layerY : e.offSetY;
+		}
+	}
 }
