@@ -18,6 +18,7 @@ var my;
 var data;
 var wave;
 var halo;
+var dust;
 
 var babyTail = [];
 var babyEye = [];
@@ -27,6 +28,8 @@ var momTail = [];
 var momEye = [];
 var momBodyOra = [];
 var momBodyBlue = [];
+
+var dustPic = [];
 
 
 //窗口加载完后开始游戏函数
@@ -73,6 +76,8 @@ function init(){
 	wave.init();
 	halo = new haloObj();
 	halo .init();
+	dust = new dustObj();
+	dust.init();
 
 	for (var i = 0; i < 8; i++) {
 		babyTail[i] = new Image();
@@ -99,6 +104,10 @@ function init(){
 		momBodyBlue[i] = new Image();
 		momBodyOra[i].src = "./img/bigSwim"+i+".png";
 		momBodyBlue[i].src = "./img/bigSwimBlue"+i+".png";
+	}
+	for (var i = 0; i < 7; i++) {
+		dustPic[i] = new Image();
+		dustPic[i].src = "./img/dust"+i+".png";
 	}
 	ctx1.font = "20px Verdana";
 	ctx1.textAlign = "center";
@@ -135,6 +144,7 @@ function gameloop(){
 	data.draw();
 	wave.draw();
 	halo.draw();
+	dust.draw();
 }
 //获取鼠标坐标
 function onMouseMove(e){

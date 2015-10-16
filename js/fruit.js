@@ -2,6 +2,7 @@ var fruitObj = function(){
 	this.alive = []; //bool
 	this.x = [];//横坐标
 	this.y = [];//纵坐标
+	this.aneNo = [];
 	this.l = [];//大小
 	this.speed = [];//速度
 	this.fruitType = []; //果实类型
@@ -16,6 +17,7 @@ fruitObj.prototype.init = function(){
 		this.x[i] = 0;
 		this.y[i] = 0;
 		this.l[i] = 0;
+		this.aneNo[i] = 0;
 		this.speed[i] = Math.random() * 0.017 + 0.003; //[0.003,0.02)
 		this.fruitType[i] = '';
 	}
@@ -31,10 +33,13 @@ fruitObj.prototype.draw = function(){
 			var pic = this.orange;
 		}		
 		if (this.alive[i]) {
-			if (this.l[i]<=14) {
-				this.l[i] += this.speed[i]*deltaTime;//长大
+			if (this.l[i]<=14) {//grow
+				var No = this.aneNo[i]
+				this.x[i] = ane.headx[No];
+				this.y[i] = ane.heady[No];
+				this.l[i] += this.speed[i]*deltaTime;
 			}else{
-				this.y[i] -= this.speed[i]*7*deltaTime;//上升
+				this.y[i] -= this.speed[i]*7*deltaTime;
 			}
 			ctx2.drawImage(pic, this.x[i]-this.l[i]*0.5, this.y[i]-this.l[i]*0.5, this.l[i], this.l[i]);
 			if (this.y[i]<-10) {
@@ -46,9 +51,7 @@ fruitObj.prototype.draw = function(){
 //生成果实
 fruitObj.prototype.born = function(i){
 	//生成在哪个珊瑚上
-	var aneID = Math.floor(Math.random()*ane.num);
-	this.x[i] = ane.x[aneID];
-	this.y[i] = canHeight-ane.len[aneID];
+	this.aneNo[i] = Math.floor(Math.random()*ane.num);
 	this.l[i] = 0;
 	this.alive[i] = true;
 	//随机种类
