@@ -2,9 +2,10 @@ var momObj = function(){
 	this.x;
 	this.y;
 	this.angle;
-	this.bigEye = new Image();
-	this.bigBody = new Image();
-	this.bigTail = new Image();
+	this.momTail = [];
+	this.momEye = [];
+	this.momBodyOra = [];
+	this.momBodyBlue = [];
 
 	this.momTailTimer = 0;
 	this.momTailCount = 0;
@@ -20,9 +21,20 @@ momObj.prototype.init = function(){
 	this.x = canWidth * 0.5;
 	this.y = canHeight * 0.5;
 	this.angle = 0;
-	this.bigEye.src = './img/bigEye0.png';
-	this.bigBody.src = './img/bigSwim0.png';
-	this.bigTail.src = './img/bigTail0.png';
+	for (var i = 0; i < 8; i++) {
+		this.momTail[i] = new Image();
+		this.momTail[i].src = "./img/bigTail"+i+".png";
+	}
+	for (var i = 0; i < 2; i++) {
+		this.momEye[i] = new Image();
+		this.momEye[i].src = "./img/bigEye"+i+".png";
+	}
+	for (var i = 0; i < 8; i++) {
+		this.momBodyOra[i] = new Image();
+		this.momBodyBlue[i] = new Image();
+		this.momBodyOra[i].src = "./img/bigSwim"+i+".png";
+		this.momBodyBlue[i].src = "./img/bigSwimBlue"+i+".png";
+	}
 }
 //绘画
 momObj.prototype.draw = function(){
@@ -58,15 +70,15 @@ momObj.prototype.draw = function(){
 		ctx1.translate(this.x, this.y);
 		ctx1.rotate(this.angle);
 		var momTailCount = this.momTailCount;
-		ctx1.drawImage(momTail[momTailCount], -momTail[momTailCount].width*0.5+30 , -momTail[momTailCount].height*0.5);
+		ctx1.drawImage(this.momTail[momTailCount], -this.momTail[momTailCount].width*0.5+30 , -this.momTail[momTailCount].height*0.5);
 		var momBodyCount = this.momBodyCount;
 		if (data.double == 1) {
-			ctx1.drawImage(momBodyOra[momBodyCount], -momBodyOra[momBodyCount].width*0.5, -momBodyOra[momBodyCount].height*0.5);			
+			ctx1.drawImage(this.momBodyOra[momBodyCount], -this.momBodyOra[momBodyCount].width*0.5, -this.momBodyOra[momBodyCount].height*0.5);			
 		}else{
-			ctx1.drawImage(momBodyBlue[momBodyCount], -momBodyBlue[momBodyCount].width*0.5, -momBodyBlue[momBodyCount].height*0.5);
+			ctx1.drawImage(this.momBodyBlue[momBodyCount], -this.momBodyBlue[momBodyCount].width*0.5, -this.momBodyBlue[momBodyCount].height*0.5);
 		}
 
 		var momEyeCount = this.momEyeCount;
-		ctx1.drawImage(momEye[momEyeCount], -momEye[momEyeCount].width*0.5, -momEye[momEyeCount].height*0.5);
+		ctx1.drawImage(this.momEye[momEyeCount], -this.momEye[momEyeCount].width*0.5, -this.momEye[momEyeCount].height*0.5);
 	ctx1.restore();
 };

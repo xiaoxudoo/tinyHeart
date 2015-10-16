@@ -3,7 +3,7 @@ var dustObj = function(){
 	this.y = [];
 	this.amp = [];
 	this.No = [];
-
+	this.dustPic = [];
 	this.alpha;
 }
 dustObj.prototype.num = 30;
@@ -14,6 +14,10 @@ dustObj.prototype.init = function(){
 		this.amp[i] = 20 + Math.random()*25;
 		this.No[i] = Math.floor(Math.random()*7);
 	};
+	for (var i = 0; i < 7; i++) {
+		this.dustPic[i] = new Image();
+		this.dustPic[i].src = "./img/dust"+i+".png";
+	}
 	this.alpha = 0;
 }
 dustObj.prototype.draw = function(){
@@ -24,6 +28,6 @@ dustObj.prototype.draw = function(){
 		if (isNaN(this.amp[i])) {
 			console.log('1');
 		}
-		ctx1.drawImage(dustPic[no],this.x[i]+this.amp[i]*l,this.y[i])
+		ctx1.drawImage(this.dustPic[no],this.x[i]+this.amp[i]*l,this.y[i])
 	};
 }

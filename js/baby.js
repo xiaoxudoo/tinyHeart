@@ -2,27 +2,38 @@ var babyObj = function(){
 	this.x;
 	this.y;
 	this.angle;
-	this.babyEye = new Image();
-	this.babyBody = new Image();
-	this.babyTail = new Image();
 
+	this.babyTail = [];
 	this.babyTailTimer = 0;
 	this.babyTailCount = 0;
 
+	this.babyEye = [];
 	this.babyEyeTimer = 0;
 	this.babyEyeCount = 0;
 	this.babyEyeInterval = 1000;
 
+	this.babyBoby = [];
 	this.babyBodyTimer = 0;
 	this.babyBodyCount = 0;
+
 }
 //初始化
 babyObj.prototype.init = function(){
 	this.x = canWidth*0.5 - 50;
 	this.y = canHeight*0.5 + 50;
 	this.angle = 0;
-	this.babyEye.src = './img/babyEye0.png';
-	this.babyBody.src = './img/babyFade0.png';
+	for (var i = 0; i < 8; i++) {
+		this.babyTail[i] = new Image();
+		this.babyTail[i].src = "./img/babyTail"+i+".png";
+	}
+	for (var i = 0; i < 2; i++) {
+		this.babyEye[i] = new Image();
+		this.babyEye[i].src = "./img/babyEye"+i+".png";
+	}
+	for (var i = 0; i < 20; i++) {
+		this.babyBoby[i] = new Image();
+		this.babyBoby[i].src = "./img/babyFade"+i+".png";
+	}
 }
 //绘画
 babyObj.prototype.draw = function(){
@@ -68,12 +79,12 @@ babyObj.prototype.draw = function(){
 		ctx1.rotate(this.angle);
 
 		var babyTailCount = this.babyTailCount;
-		ctx1.drawImage(babyTail[babyTailCount], -babyTail[babyTailCount].width*0.5+23, -babyTail[babyTailCount].height*0.5);
+		ctx1.drawImage(this.babyTail[babyTailCount], -this.babyTail[babyTailCount].width*0.5+23, -this.babyTail[babyTailCount].height*0.5);
 
 		var babyBodyCount = this.babyBodyCount;
-		ctx1.drawImage(babyBoby[babyBodyCount], -babyBoby[babyBodyCount].width*0.5, -babyBoby[babyBodyCount].height*0.5);
+		ctx1.drawImage(this.babyBoby[babyBodyCount], -this.babyBoby[babyBodyCount].width*0.5, -this.babyBoby[babyBodyCount].height*0.5);
 		
 		var babyEyeCount = this.babyEyeCount;
-		ctx1.drawImage(babyEye[babyEyeCount], -babyEye[babyEyeCount].width*0.5, -babyEye[babyEyeCount].height*0.5);
+		ctx1.drawImage(this.babyEye[babyEyeCount], -this.babyEye[babyEyeCount].width*0.5, -this.babyEye[babyEyeCount].height*0.5);
 	ctx1.restore();
 }

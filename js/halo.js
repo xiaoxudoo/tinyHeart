@@ -3,7 +3,7 @@ var haloObj = function(){
 	this.y = [];
 	this.alive = [];
 	this.r = [];
-}
+};
 
 haloObj.prototype.num = 10;
 
@@ -13,8 +13,8 @@ haloObj.prototype.init = function(){
 		this.y[i] = 0;
 		this.alive[i] = false;
 		this.r[i] = 0;
-	};
-}
+	}
+};
 
 haloObj.prototype.draw = function(){
 	ctx1.save();
@@ -35,9 +35,9 @@ haloObj.prototype.draw = function(){
 			ctx1.strokeStyle = "rgba(203, 91, 0,"+alpha+")";
 			ctx1.stroke();
 		}
-	};
+	}
 	ctx1.restore();
-}
+};
 
 haloObj.prototype.born = function(x,y){
 	for (var i = 0; i < this.num; i++) {
@@ -48,5 +48,5 @@ haloObj.prototype.born = function(x,y){
 			this.y[i] = y;
 			return;
 		}
-	};
-}
+	}
+};

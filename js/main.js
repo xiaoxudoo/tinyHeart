@@ -15,22 +15,10 @@ var mom;//大鱼
 var baby;//小鱼
 var mx;//鼠标x，y坐标
 var my;
-var data;
-var wave;
-var halo;
-var dust;
-
-var babyTail = [];
-var babyEye = [];
-var babyBoby = [];
-
-var momTail = [];
-var momEye = [];
-var momBodyOra = [];
-var momBodyBlue = [];
-
-var dustPic = [];
-
+var data;//数据
+var wave;//大鱼吃果实的光圈
+var halo;//大鱼喂小鱼的光圈
+var dust;//漂浮物
 
 //窗口加载完后开始游戏函数
 //--------------------------------------------------------------------------
@@ -70,45 +58,18 @@ function init(){
 	//初始鼠标坐标
 	mx = canWidth*0.5;
 	my = canHeight*0.5;
-
+	//定义数据对象
 	data = new dataObj();
+	//定义大鱼-果实光圈
 	wave = new waveObj();
 	wave.init();
+	//定义大鱼-小鱼光圈
 	halo = new haloObj();
 	halo .init();
+	//定义漂浮物对象
 	dust = new dustObj();
 	dust.init();
 
-	for (var i = 0; i < 8; i++) {
-		babyTail[i] = new Image();
-		babyTail[i].src = "./img/babyTail"+i+".png";
-	}
-	for (var i = 0; i < 2; i++) {
-		babyEye[i] = new Image();
-		babyEye[i].src = "./img/babyEye"+i+".png";
-	}
-	for (var i = 0; i < 20; i++) {
-		babyBoby[i] = new Image();
-		babyBoby[i].src = "./img/babyFade"+i+".png";
-	}
-	for (var i = 0; i < 8; i++) {
-		momTail[i] = new Image();
-		momTail[i].src = "./img/bigTail"+i+".png";
-	}
-	for (var i = 0; i < 2; i++) {
-		momEye[i] = new Image();
-		momEye[i].src = "./img/bigEye"+i+".png";
-	}
-	for (var i = 0; i < 8; i++) {
-		momBodyOra[i] = new Image();
-		momBodyBlue[i] = new Image();
-		momBodyOra[i].src = "./img/bigSwim"+i+".png";
-		momBodyBlue[i].src = "./img/bigSwimBlue"+i+".png";
-	}
-	for (var i = 0; i < 7; i++) {
-		dustPic[i] = new Image();
-		dustPic[i].src = "./img/dust"+i+".png";
-	}
 	ctx1.font = "20px Verdana";
 	ctx1.textAlign = "center";
 }
@@ -139,13 +100,18 @@ function gameloop(){
 	baby.draw();
 	//大鱼和果实的碰撞检测
 	momFruitsCollision();
+	//大鱼和小鱼的碰撞检测
 	momBabyCollision();
-
+	//绘画得分
 	data.draw();
+	//绘画大鱼-果实光圈
 	wave.draw();
+	//绘画大鱼-小鱼光圈
 	halo.draw();
+	//绘画漂浮物
 	dust.draw();
 }
+
 //获取鼠标坐标
 function onMouseMove(e){
 	if (!data.gameOver) {
